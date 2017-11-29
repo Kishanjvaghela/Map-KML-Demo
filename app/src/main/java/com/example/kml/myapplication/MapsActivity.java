@@ -38,23 +38,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void retrieveFileFromResource() {
-        try {
-            KmlLayer place1Kml = addLayerToMap(R.raw.place_1);
+        KmlLayer place1Kml = addLayerToMap(R.raw.place_1);
+        if (place1Kml != null)
             moveCameraToKml(place1Kml);
-            KmlLayer place2Kml = new KmlLayer(mMap, R.raw.place_2, getApplicationContext());
-            place2Kml.addLayerToMap();
+        addLayerToMap(R.raw.place_2);
+        addLayerToMap(R.raw.place_3);
+        addLayerToMap(R.raw.place_4);
+        addLayerToMap(R.raw.place_5);
+        addLayerToMap(R.raw.place_6);
+        addLayerToMap(R.raw.place_7);
+        addLayerToMap(R.raw.place_8);
 
+
+    }
+
+    private KmlLayer addLayerToMap(int rawMap) {
+        try {
+            KmlLayer kmlLayer = new KmlLayer(mMap, rawMap, getApplicationContext());
+            kmlLayer.addLayerToMap();
+            return kmlLayer;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         }
-    }
-
-    private KmlLayer addLayerToMap(int rawMap) throws IOException, XmlPullParserException {
-        KmlLayer kmlLayer = new KmlLayer(mMap, R.raw.place_1, getApplicationContext());
-        kmlLayer.addLayerToMap();
-        return kmlLayer;
+        return null;
     }
 
     private void moveCameraToKml(KmlLayer kmlLayer) {
